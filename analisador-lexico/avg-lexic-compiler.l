@@ -30,6 +30,8 @@ L  		[a-zA-Z_]
 \]       				{printf("R_BRACKET\n");}
 "if"					{printf("IF\n");}
 "for" 					{printf("FOR\n");}
+"do" 					{printf("DO\n");}
+"while" 					{printf("WHILE\n");}
 "int\ "					{printf("INT_TYPE\n");}
 "float\ "				{printf("FLOAT_TYPE\n");}
 "double\ "				{printf("DOUBLE_TYPE\n");}
@@ -43,12 +45,17 @@ L  		[a-zA-Z_]
 "**"					{printf("EXP_OPERATION\n");}
 "/"						{printf("DIV_OPERATION\n");}
 "*"						{printf("MULT_OPERATION\n");}
+"&"					    {printf("ADDRESS\n");}
+"&&"					{printf("AND_OPERATION\n");}
+"||"					{printf("OR_OPERATION\n");}
 "="						{printf("ASSIGNMENT\n");}
 "=="					{printf("EQUAL_SIGN\n");}
 "<"						{printf("LESS\n");}
 "<="					{printf("LESS_EQUAL\n");}
 ">"						{printf("GREATER\n");}
 ">="					{printf("GREATER_EQUAL\n");}
+";"					    {printf("SEMICOLON\n");}
+","					    {printf("COMMA\n");}
 [0-9]+					{printf("LITERAL_INT(%s)\n", yytext);}
 [0-9]*\.[0-9]+f  		{printf("LITERAL_FLOAT(%s)\n", yytext);}
 [0-9]*\.[0-9]+  		{printf("LITERAL_DOUBLE(%s)\n", yytext);}
