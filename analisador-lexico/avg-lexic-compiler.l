@@ -26,7 +26,9 @@ L  		[a-zA-Z_]
 "*/"					{comment = 0;}
 "//"					{}	
 \n 						{linha++;}
-[" ",\t]		  		{}
+
+[" " | \t]		  		{}
+#.*						{if(!comment) printf("IMPORTATION PROCESS\n");}
 \(       				{if(!comment) printf("L_PARENTHESIS\n");}
 \)       				{if(!comment) printf("R_PARENTHESIS\n");}
 \{       				{if(!comment) printf("L_KEY\n");}
@@ -36,13 +38,20 @@ L  		[a-zA-Z_]
 "if"					{if(!comment) printf("IF_STM\n");}
 "else"					{if(!comment) printf("ELSE_STM\n");}
 "else if"				{if(!comment) printf("ELSE_IF_STM\n");}
-"for" 					{if(!comment) printf("FOR\n");}
+"for" 					{if(!comment) printf("FOR_STM\n");}
+"do" 					{if(!comment) printf("DO\n");}
+"while" 				{if(!comment) printf("WHILE_STM\n");}
 "int\ "					{if(!comment) printf("INT_TYPE\n");}
 "float\ "				{if(!comment) printf("FLOAT_TYPE\n");}
 "double\ "				{if(!comment) printf("DOUBLE_TYPE\n");}
 "string\ "				{if(!comment) printf("STRING_TYPE\n");}
+"boolean\ "				{if(!comment) printf("BOOLEAN_TYPE\n");}
 "matrix\ "				{if(!comment) printf("MATRIX_TYPE\n");}
 "void\ "				{if(!comment) printf("VOID_TYPE\n");}
+"const\ "				{if(!comment) printf("CONSTANT\n");}
+"return\ "				{if(!comment) printf("RETURN\n");}
+"true"					{if(!comment) printf("TRUE_VAL\n");}
+"false"					{if(!comment) printf("FALSE_VAL\n");}
 {L}({L}|{D})* 			{if(!comment) printf("IDENTIFIER\n");}
 "+"						{if(!comment) printf("PLUS_OP\n");}
 "-"						{if(!comment) printf("SUB_OP\n");}
@@ -53,11 +62,16 @@ L  		[a-zA-Z_]
 "++"					{if(!comment) printf("INC_OP\n");}
 "--"					{if(!comment) printf("DEC_OP\n");}
 "="						{if(!comment) printf("ASSINGMENT\n");}
+"&"					    {if(!comment) printf("ADDRESS\n");}
+"&&"					{if(!comment) printf("AND_OP\n");}
+"||"					{if(!comment) printf("OR_OP\n");}
 "=="					{if(!comment) printf("EQ_OP\n");}
 "<"						{if(!comment) printf("S_OP\n");}
 "<="					{if(!comment) printf("SE_OP\n");}
 ">"						{if(!comment) printf("G_OP\n");}
 ">="					{if(!comment) printf("GEQ_OP\n");}
+";"					    {if(!comment) printf("SEMICOLON\n");}
+","					    {if(!comment) printf("COMMA\n");}
 [0-9]+					{if(!comment) printf("LITERAL_INT(%s)\n", yytext);}
 [0-9]*\.[0-9]+f  		{if(!comment) printf("LITERAL_FLOAT(%s)\n", yytext);}
 [0-9]*\.[0-9]+  		{if(!comment) printf("LITERAL_DOUBLE(%s)\n", yytext);}
