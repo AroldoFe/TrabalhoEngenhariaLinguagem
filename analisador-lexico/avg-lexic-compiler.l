@@ -8,11 +8,20 @@
  *	  stdin> Ctrl-D
  */
 
+%{
+	int linha = 1;
+
+	void lexical_error(char* yytext) {
+		fprintf(stderr, "Erro léxico na linha %d: %s\n", linha, yytext);
+	}
+%}
+
 D 		[0-9]
 L  		[a-zA-Z_]
 
 %%
-[\n," ",\t]		  		{}
+\n 						{linha++;}
+[" ",\t]		  		{}
 \(       				{printf("L_PARENTHESIS\n");}
 \)       				{printf("R_PARENTHESIS\n");}
 \{       				{printf("L_KEY\n");}
@@ -40,11 +49,10 @@ L  		[a-zA-Z_]
 "<="					{printf("LESS_EQUAL\n");}
 ">"						{printf("GREATER\n");}
 ">="					{printf("GREATER_EQUAL\n");}
-{"\""}({L}|{D}|{"\ "})*{"\""} 	{printf("LITERAL_STRING(%s)\n", yytext);}
 [0-9]+					{printf("LITERAL_INT(%s)\n", yytext);}
 [0-9]*\.[0-9]+f  		{printf("LITERAL_FLOAT(%s)\n", yytext);}
 [0-9]*\.[0-9]+  		{printf("LITERAL_DOUBLE(%s)\n", yytext);}
-. 						{printf("FALTA_TOKEN(%s)\n", yytext);}
+. 						{lexical_error(yytext);}
 %%
 
 int main(void) {
