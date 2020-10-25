@@ -21,7 +21,7 @@ L  		[a-zA-Z_]
 
 %%
 \n 						{linha++;}
-[" ",\t]		  		{}
+[" "|\t]		  		{}
 \(       				{printf("L_PARENTHESIS\n");}
 \)       				{printf("R_PARENTHESIS\n");}
 \{       				{printf("L_KEY\n");}
