@@ -2,6 +2,8 @@
 	Arquivo que contem funcoes teste para o analisador
 	lexico
 */
+// Teste comentario linha unica
+
 #include <stdio.h>
 int main(string args) {
 	int inteiro = 5 + 5 - 3;

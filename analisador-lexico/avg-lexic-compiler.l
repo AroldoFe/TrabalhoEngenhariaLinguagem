@@ -24,11 +24,11 @@ L  		[a-zA-Z_]
 
 "/*"					{comment = 1;}
 "*/"					{comment = 0;}
-"//."					{}	
+"//"(.)*\n				{}	
 \n 						{linha++;}
 
 [" " | \t]		  		{}
-\#[include]\ \<(.)+[.h]\>{if(!comment) printf("IMPORTATION PROCESS\n");}
+("#include")((\ )+|"")("<")((\ )+|"")(.)*(".h")((\ )+|"")(">") {if(!comment) printf("IMPORTATION PROCESS\n");}
 \(       				{if(!comment) printf("L_PARENTHESIS\n");}
 \)       				{if(!comment) printf("R_PARENTHESIS\n");}
 \{       				{if(!comment) printf("L_KEY\n");}
@@ -49,7 +49,7 @@ L  		[a-zA-Z_]
 "matrix\ "				{if(!comment) printf("MATRIX_TYPE\n");}
 "void\ "				{if(!comment) printf("VOID_TYPE\n");}
 "const\ "				{if(!comment) printf("CONSTANT\n");}
-"return\ "				{if(!comment) printf("RETURN\n");}
+"return"[" "|";"]		{if(!comment) printf("RETURN\n");}
 "true"					{if(!comment) printf("TRUE_VAL\n");}
 "false"					{if(!comment) printf("FALSE_VAL\n");}
 {L}({L}|{D})* 			{if(!comment) printf("IDENTIFIER\n");}
