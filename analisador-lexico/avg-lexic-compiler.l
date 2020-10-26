@@ -59,6 +59,7 @@ L  		[a-zA-Z_]
 [0-9]+					{printf("LITERAL_INT(%s)\n", yytext);}
 [0-9]*\.[0-9]+f  		{printf("LITERAL_FLOAT(%s)\n", yytext);}
 [0-9]*\.[0-9]+  		{printf("LITERAL_DOUBLE(%s)\n", yytext);}
+"\""(.)*"\""			{printf("LITERAL_STRING(%s)\n", yytext);}
 . 						{lexical_error(yytext);}
 %%
 
