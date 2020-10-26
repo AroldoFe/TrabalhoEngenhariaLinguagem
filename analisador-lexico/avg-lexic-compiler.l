@@ -35,6 +35,7 @@ L  		[a-zA-Z_]
 "int\ "					{printf("INT_TYPE\n");}
 "float\ "				{printf("FLOAT_TYPE\n");}
 "double\ "				{printf("DOUBLE_TYPE\n");}
+"char\ "				{printf("CHAR_TYPE\n");}
 "string\ "				{printf("STRING_TYPE\n");}
 "matrix\ "				{printf("MATRIX_TYPE\n");}
 "void\ "				{printf("VOID_TYPE\n");}
@@ -59,7 +60,9 @@ L  		[a-zA-Z_]
 [0-9]+					{printf("LITERAL_INT(%s)\n", yytext);}
 [0-9]*\.[0-9]+f  		{printf("LITERAL_FLOAT(%s)\n", yytext);}
 [0-9]*\.[0-9]+  		{printf("LITERAL_DOUBLE(%s)\n", yytext);}
+(\')([a-zA-Z])(\')		{printf("LITERAL_CHAR(%s)\n", yytext);}
 "\""(.)*"\""			{printf("LITERAL_STRING(%s)\n", yytext);}
+(\')(.)+(\')			{lexical_error(yytext);}
 . 						{lexical_error(yytext);}
 %%
 
