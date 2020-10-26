@@ -25,5 +25,8 @@ int main(string args) {
 	matrix matriz_a = {3, 2};
 	matrix matrizB;
 
+	boolean a = true;
+	boolean b = false;
+
 	return 1;
 }
