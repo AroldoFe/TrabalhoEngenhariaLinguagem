@@ -2,6 +2,7 @@
 	Arquivo que contem funcoes teste para o analisador
 	lexico
 */
+#include <stdio.h>
 int main(string args) {
 	int inteiro = 5 + 5 - 3;
 	float flutuante = 3.25f / 3;

@@ -24,11 +24,11 @@ L  		[a-zA-Z_]
 
 "/*"					{comment = 1;}
 "*/"					{comment = 0;}
-"//"					{}	
+"//."					{}	
 \n 						{linha++;}
 
 [" " | \t]		  		{}
-#.*						{if(!comment) printf("IMPORTATION PROCESS\n");}
+"\#include\ \<(.)+.h\>"	{if(!comment) printf("IMPORTATION PROCESS\n");}
 \(       				{if(!comment) printf("L_PARENTHESIS\n");}
 \)       				{if(!comment) printf("R_PARENTHESIS\n");}
 \{       				{if(!comment) printf("L_KEY\n");}
