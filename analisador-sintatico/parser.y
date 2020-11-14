@@ -24,22 +24,21 @@ int yylex(void);
 %start PROGRAM
 
 %%
-PROGRAM : EXPR SEMICOLON EOL
-        | PROGRAM EXPR SEMICOLON EOL
-        | IF_STATEMENT
-        | LOOP_STATEMENT
+PROGRAM : EXPR  EOL
+        | PROGRAM EXPR EOL
+        | IF_STATEMENT EOL
+        | LOOP_STATEMENT EOL
+        ; 
+
+ASSGMT  : IDENTIFIER ASSINGMENT EXPR {updateSymbolVal($1,$3);}
         ; 
 
 EXPR    : ARIT_EXPR {$$ = $1;}
         | LOG_EXPR {$$ = $1;}
         ;
 
-ASSGMT  : IDENTIFIER ASSINGMENT EXPR {$$ = $3;}
-        ; 
-
-
 ARIT_EXPR   : TERM {$$ = $1;}
-            | TERM PLUS_OP ARIT_EXPR {$$ = $1;}
+            | TERM PLUS_OP ARIT_EXPR {$$ = $1 + $3;}
             | TERM SUB_OP ARIT_EXPR {$$ = $1 - $3;}
             | TERM DIV_OP ARIT_EXPR {$$ = $1 / $3;}
             | TERM STAR ARIT_EXPR {$$ = $1 * $3;}   
@@ -115,10 +114,38 @@ CONDITION_STATEMENT : L_PARENTHESIS LOG_EXPR R_PARENTHESIS
 
 %%
 
+int computeSymbolIndex(char token)
+{
+	int idx = -1;
+	if(islower(token)) {
+		idx = token - 'a' + 26;
+	} else if(isupper(token)) {
+		idx = token - 'A';
+	}
+	return idx;
+} 
+
+int symbolVal(char symbol)
+{
+	int bucket = computeSymbolIndex(symbol);
+	return symbols[bucket];
+}
+
+void updateSymbolVal(char symbol, int val) {
+        int bucket = computeSymbolIndex(symbol);
+        symbols[bucket] = val;
+}
+
 void yyerror(char* c){
     printf ("%s\n", c);
 }
 
 int main() {
-    return yyparse();
+        int i;
+	
+        for(i=0; i<52; i++) {
+		symbols[i] = 0;
+	}
+
+        return yyparse();
 }

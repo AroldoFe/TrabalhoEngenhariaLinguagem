@@ -55,6 +55,10 @@
     return DIV_OP;
 }
 
+"*"	{
+    return STAR;
+}
+
 "==" {
     return EQ_OP;
 }
