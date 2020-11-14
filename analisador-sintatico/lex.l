@@ -19,16 +19,67 @@
     return LITERAL_INT;
 }
 
-[+] {
+[0-9]*\.[0-9]+f {
+    yylval = atof(yytext);
+    return LITERAL_FLOAT;
+}
+
+[0-9]*\.[0-9]+ {
+    return LITERAL_DOUBLE;
+}
+
+(\')([a-zA-Z])(\') {
+    return LITERAL_CHAR;
+}
+"\""(.)*"\"" {
+    return LITERAL_STRING;
+}
+
+"true" {
+    return TRUE_VAL;
+}
+
+"false" {
+    return FALSE_VAL;
+}
+
+"+" {
     return PLUS_OP;
 }
 
-[-]	{
+"-"	{
     return SUB_OP;
 }
 
-[/]	{
+"/"	{
     return DIV_OP;
+}
+
+"==" {
+    return EQ_OP;
+}
+
+"&&" {
+    return AND_OP;
+}
+
+"||" {
+    return OR_OP;
+}
+
+[<]	{
+    return S_OP;
+}
+[<=] {
+    return SE_OP;
+}
+
+[>]	{
+    return G_OP;
+}
+
+[>=] {
+    return GE_OP;
 }
 
 . ;
