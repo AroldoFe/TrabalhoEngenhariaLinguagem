@@ -85,7 +85,7 @@ L  		[a-zA-Z_]
 }
 
 "do" {
-	if(!comment) return DO;
+	if(!comment) return DO_STM;
 }
 
 "while" {
@@ -102,6 +102,10 @@ L  		[a-zA-Z_]
 
 "double\ " {
 	if(!comment) return DOUBLE_TYPE;
+}
+
+"char\ " {
+	if(!comment) return CHAR_TYPE;
 }
 
 "string\ " {
